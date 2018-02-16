@@ -13,8 +13,10 @@ const getTempArray = data => {
 
 const getForecastArray = data => {
   var forecastArray = []
-  for (var hour = 0; hour < 18; hour+2) {
-    forecastArray.push({icon: data.hourly.data[hour].icon, precep: data.hourly.data[hour].precipProbability})
+  for (var hour = 0; hour < 18; hour++) {
+     if (hour % 2 != 0) {
+       forecastArray.push({icon: "/img/" + data.hourly.data[hour].icon + ".svg", precep: "%" + Math.floor(data.hourly.data[hour].precipProbability * 100)})
+     }
   }
   console.log(forecastArray);
   return forecastArray;

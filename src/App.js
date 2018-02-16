@@ -17,6 +17,7 @@ class App extends Component {
       tempRange: [],
       sunRise: null,
       sunSet: null,
+      foreCastArray: [],
       timeNow: (new Date()).getTime(),
     };
   }
@@ -32,8 +33,7 @@ class App extends Component {
       .then(
         (result) => {
           logData(result)
-          const tempArray = getTempArray(result)
-          const forecastArray = getForecastArray(result)
+          let tempArray = getTempArray(result)
           this.setState({
             isLoaded: true,
             tempRange: tempDataPoints(tempArray),
@@ -41,6 +41,7 @@ class App extends Component {
             lowTemp: getLowTemp(tempArray),
             sunRise: getSunRise(result),
             sunSet: getSunSet(result),
+            foreCastArray: getForecastArray(result),
             timeNow: (new Date()).getTime(),
           });
         },
@@ -54,11 +55,17 @@ class App extends Component {
   }
 
   render() {
-      const { error, isLoaded, tempRange, highTemp, lowTemp, timeNow } = this.state;
-      console.log(this.state.timeNow);
+      const { error, isLoaded, tempRange, foreCastArray } = this.state;
+      console.log(this.state.foreCastArray);
+      const foreCast = foreCastArray.map((foreCast) =>
+        <li id={foreCast.icon}>
+          <img src={foreCast.icon}/>
+          <p>{foreCast.precep}</p>
+        </li>
+      );
       const data = [
             {
-                color: "blue",
+                color: "white",
                 points: this.state.tempRange
             }
         ];
@@ -70,7 +77,7 @@ class App extends Component {
         return (
           <div className='App'>
             <div className='weather-graph'>
-            <h3 className='high-temp'>{this.state.highTemp} -</h3>
+            <h3 className='high-temp'>{this.state.highTemp}°</h3>
             <div className='line-chart'>
               <LineChart
                   width={600}
@@ -84,9 +91,12 @@ class App extends Component {
             <p className="hour-four"><Moment format="HH:mm" add={{ hours: 4 }}>{this.props.timeNow}</Moment></p>
             <p className="hour-eight"><Moment format="HH:mm" add={{ hours: 8 }}>{this.props.timeNow}</Moment></p>
             <p className="hour-twelve"><Moment format="HH:mm" add={{ hours: 12 }}>{this.props.timeNow}</Moment></p>
-            <h3 className='low-temp'>{this.state.lowTemp} -</h3>
-            </div>
+            <h3 className='low-temp'>{this.state.lowTemp}°</h3>
             <div className='weather-forecast'>
+              <ul className='forecast-container'>
+                {foreCast}
+              </ul>
+            </div>
             </div>
           </div>
         );
