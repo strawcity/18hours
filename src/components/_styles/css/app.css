@@ -1,2 +1,47 @@
+@import url("https://fonts.googleapis.com/css?family=Dosis:200,500,700");
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Dosis', sans-serif;
+  height: 100%;
+  background: darkseagreen; }
+
 h1 {
   color: blue; }
+
+.weather-graph {
+  width: 600px;
+  height: 300px;
+  margin: 50px auto;
+  position: relative;
+  background: steelblue; }
+  .weather-graph h3 {
+    margin: 0; }
+  .weather-graph .high-temp {
+    position: absolute;
+    top: 33px;
+    left: 30px; }
+  .weather-graph .low-temp {
+    position: absolute;
+    bottom: 40px;
+    left: 30px; }
+  .weather-graph .line-chart {
+    position: absolute;
+    padding-left: 20px; }
+  .weather-graph p {
+    width: 40px;
+    margin: 0;
+    text-align: center; }
+  .weather-graph .hour-four {
+    position: absolute;
+    top: 15px;
+    left: 185px; }
+  .weather-graph .hour-eight {
+    position: absolute;
+    top: 15px;
+    left: 316px; }
+  .weather-graph .hour-twelve {
+    position: absolute;
+    top: 15px;
+    left: 449px; }

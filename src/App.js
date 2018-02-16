@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import Moment from 'react-moment';
 import './components/_styles/css/app.css'
-import { logData, tempRange, highTemp, lowTemp } from './components/weatherParse'
-import BarChart from './components/BarChart'
-// import { featchWeather } from './apiService'
+import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp, getSunRise, getSunSet } from './components/weatherParse'
+import LineChart from 'react-linechart';
+
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +15,9 @@ class App extends Component {
       highTemp: null,
       lowTemp: null,
       tempRange: [],
+      sunRise: null,
+      sunSet: null,
+      timeNow: (new Date()).getTime(),
     };
   }
 
@@ -28,12 +32,16 @@ class App extends Component {
       .then(
         (result) => {
           logData(result)
-          const tempArray = tempRange(result)
+          const tempArray = getTempArray(result)
+          const forecastArray = getForecastArray(result)
           this.setState({
             isLoaded: true,
-            tempRange: tempArray,
-            highTemp: highTemp(tempArray),
-            lowTemp: lowTemp(tempArray),
+            tempRange: tempDataPoints(tempArray),
+            highTemp: getHighTemp(tempArray),
+            lowTemp: getLowTemp(tempArray),
+            sunRise: getSunRise(result),
+            sunSet: getSunSet(result),
+            timeNow: (new Date()).getTime(),
           });
         },
         (error) => {
@@ -46,7 +54,14 @@ class App extends Component {
   }
 
   render() {
-      const { error, isLoaded, weather } = this.state;
+      const { error, isLoaded, tempRange, highTemp, lowTemp, timeNow } = this.state;
+      console.log(this.state.timeNow);
+      const data = [
+            {
+                color: "blue",
+                points: this.state.tempRange
+            }
+        ];
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoaded) {
@@ -54,8 +69,25 @@ class App extends Component {
       } else {
         return (
           <div className='App'>
-            <h1>{this.state.highTemp}</h1>
-            <BarChart data={[5,10,1,3]} size={[this.state.lowTemp,this.state.highTemp]} />
+            <div className='weather-graph'>
+            <h3 className='high-temp'>{this.state.highTemp} -</h3>
+            <div className='line-chart'>
+              <LineChart
+                  width={600}
+                  height={300}
+                  hideYAxis={true}
+                  hideXAxis={true}
+                  hidePoints={true}
+                  data={data}
+              />
+            </div>
+            <p className="hour-four"><Moment format="HH:mm" add={{ hours: 4 }}>{this.props.timeNow}</Moment></p>
+            <p className="hour-eight"><Moment format="HH:mm" add={{ hours: 8 }}>{this.props.timeNow}</Moment></p>
+            <p className="hour-twelve"><Moment format="HH:mm" add={{ hours: 12 }}>{this.props.timeNow}</Moment></p>
+            <h3 className='low-temp'>{this.state.lowTemp} -</h3>
+            </div>
+            <div className='weather-forecast'>
+            </div>
           </div>
         );
       }

@@ -1,3 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:200,500,700');
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Dosis', sans-serif;
+  height: 100%;
+  background: darkseagreen;
+}
+
 h1 {
   color: blue;
+}
+
+.weather-graph {
+  width: 600px;
+  height: 300px;
+  margin: 50px auto;
+  position: relative;
+  background: steelblue;
+
+  h3 {
+    margin: 0;
+  }
+
+  .high-temp {
+    position: absolute;
+    top: 33px;
+    left: 30px;
+  }
+  .low-temp {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+  }
+
+  .line-chart {
+    position: absolute;
+    padding-left: 20px;
+  }
+  p {
+    width: 40px;
+    margin: 0;
+    text-align: center;
+  }
+  .hour-four {
+    position: absolute;
+    top: 15px;
+    left: 185px;
+  }
+  .hour-eight {
+    position: absolute;
+    top: 15px;
+    left: 316px;
+  }
+  .hour-twelve {
+    position: absolute;
+    top: 15px;
+    left: 449px;
+  }
 }
