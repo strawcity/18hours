@@ -1,11 +1,14 @@
 
 const logData = data => {
-  console.log(data);
+  console.log('hourly data');
+  console.log(data.hourly.data);
 }
 
 const getTempArray = data => {
   var tempArray = []
-  for (var hour = 0; hour < 18; hour++) {
+  for (var hour = 0; hour < 19; hour++) {
+    console.log(hour)
+    console.log(data.hourly.data[hour].time * 1000)
     tempArray.push(data.hourly.data[hour].temperature)
   }
   return tempArray;
@@ -13,19 +16,18 @@ const getTempArray = data => {
 
 const getForecastArray = data => {
   var forecastArray = []
-  for (var hour = 0; hour < 18; hour++) {
-     if (hour % 2 != 0) {
+  for (var hour = 1; hour < 19; hour++) {
+     if (hour % 2 !== 0) {
        forecastArray.push({icon: "/img/" + data.hourly.data[hour].icon + ".svg", precep: "%" + Math.floor(data.hourly.data[hour].precipProbability * 100)})
      }
   }
-  console.log(forecastArray);
   return forecastArray;
 }
 
 const tempDataPoints = data => {
   var tempDataPoints = [],
       dataPoint = {}
-  for (var hour = 0; hour <= 16; hour++) {
+  for (var hour = 0; hour < 19; hour++) {
     dataPoint = {x: hour, y: data[hour]}
     tempDataPoints.push(dataPoint)
   }
@@ -41,11 +43,12 @@ const getLowTemp = tempArray => {
 }
 
 const getSunRise = result => {
-  console.log(result.daily.data[0].sunriseTime);
+  console.log('sun rise time');
+  console.log(result.daily.data[0].sunriseTime * 1000);
 }
 
 const getSunSet = result => {
-  console.log(result.daily.data[0].sunsetTime);
+  // console.log(result.daily.data[0].sunsetTime);
 }
 
 export {

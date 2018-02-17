@@ -11,7 +11,7 @@ h1 {
   color: blue; }
 
 .weather-graph {
-  width: 600px;
+  width: 624px;
   height: 300px;
   margin: 50px auto;
   position: relative;
@@ -22,46 +22,55 @@ h1 {
     font-weight: 300; }
   .weather-graph .high-temp {
     position: absolute;
-    top: 33px;
+    top: 79px;
     left: 30px; }
   .weather-graph .low-temp {
     position: absolute;
-    bottom: 40px;
+    bottom: 89px;
     left: 30px; }
   .weather-graph .line-chart {
     position: absolute;
-    padding-left: 20px; }
+    padding-left: 40px;
+    padding-top: 35px; }
   .weather-graph p {
     width: 40px;
     margin: 0;
     text-align: center;
     color: white;
-    font-weight: 600; }
+    font-weight: 600;
+    font-size: 22px; }
   .weather-graph .hour-four {
     position: absolute;
     top: 15px;
-    left: 185px; }
+    left: 163px; }
   .weather-graph .hour-eight {
     position: absolute;
     top: 15px;
-    left: 316px; }
+    left: 338px; }
   .weather-graph .hour-twelve {
     position: absolute;
     top: 15px;
-    left: 449px; }
+    left: 513px; }
 
 .weather-forecast {
   position: absolute;
-  top: 288px;
+  top: 233px;
   background: black;
   color: white;
-  width: 600px; }
+  width: 624px; }
   .weather-forecast .forecast-container {
     list-style: none;
     display: flex;
-    padding-left: 54px; }
+    padding-left: 83px; }
+    .weather-forecast .forecast-container p {
+      font-weight: 300;
+      font-size: 20px; }
     .weather-forecast .forecast-container li {
       text-align: center;
       font-weight: 300;
       width: 41px;
       padding-left: 17px; }
+
+circle {
+  r: 3;
+  fill: white; }

@@ -19,20 +19,21 @@ class App extends Component {
       sunSet: null,
       foreCastArray: [],
       timeNow: (new Date()).getTime(),
+      endTime: null,
     };
   }
 
   componentDidMount() {
     const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
-    const lat = '42.3601'
-    const lon = '-71.0589'
+    const lat = '55.6050'
+    const lon = '13.0038'
     const key = "c254108b1bb34c0524d145ad1a99d5a2"
     const locationAPI = "https://api.darksky.net/forecast/" + key + "/" + lat + "," + lon
     fetch(corsAnywhere + locationAPI)
       .then(res => res.json())
       .then(
         (result) => {
-          logData(result)
+          // logData(result)
           let tempArray = getTempArray(result)
           this.setState({
             isLoaded: true,
@@ -43,6 +44,7 @@ class App extends Component {
             sunSet: getSunSet(result),
             foreCastArray: getForecastArray(result),
             timeNow: (new Date()).getTime(),
+            endTime: ((new Date()).getTime() + 61200000),
           });
         },
         (error) => {
@@ -56,7 +58,10 @@ class App extends Component {
 
   render() {
       const { error, isLoaded, tempRange, foreCastArray } = this.state;
-      console.log(this.state.foreCastArray);
+      console.log('time now');
+      console.log(this.state.timeNow);
+      console.log('end time');
+      console.log(this.state.endTime);
       const foreCast = foreCastArray.map((foreCast) =>
         <li id={foreCast.icon}>
           <img src={foreCast.icon}/>
@@ -81,16 +86,16 @@ class App extends Component {
             <div className='line-chart'>
               <LineChart
                   width={600}
-                  height={300}
+                  height={220}
                   hideYAxis={true}
-                  hideXAxis={true}
-                  hidePoints={true}
+                  hideXAxis={false}
+                  hidePoints={false}
                   data={data}
               />
             </div>
-            <p className="hour-four"><Moment format="HH:mm" add={{ hours: 4 }}>{this.props.timeNow}</Moment></p>
-            <p className="hour-eight"><Moment format="HH:mm" add={{ hours: 8 }}>{this.props.timeNow}</Moment></p>
-            <p className="hour-twelve"><Moment format="HH:mm" add={{ hours: 12 }}>{this.props.timeNow}</Moment></p>
+            <p className="hour-four"><Moment format="H:mm" add={{ hours: 3 }}>{this.props.timeNow}</Moment></p>
+            <p className="hour-eight"><Moment format="H:mm" add={{ hours: 7 }}>{this.props.timeNow}</Moment></p>
+            <p className="hour-twelve"><Moment format="H:mm" add={{ hours: 15 }}>{this.props.timeNow}</Moment></p>
             <h3 className='low-temp'>{this.state.lowTemp}°</h3>
             <div className='weather-forecast'>
               <ul className='forecast-container'>
