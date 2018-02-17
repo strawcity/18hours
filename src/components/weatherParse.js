@@ -7,8 +7,6 @@ const logData = data => {
 const getTempArray = data => {
   var tempArray = []
   for (var hour = 0; hour < 19; hour++) {
-    console.log(hour)
-    console.log(data.hourly.data[hour].time * 1000)
     tempArray.push(data.hourly.data[hour].temperature)
   }
   return tempArray;
@@ -42,14 +40,7 @@ const getLowTemp = tempArray => {
   return Math.round(Math.min(...tempArray))
 }
 
-const getSunRise = result => {
-  console.log('sun rise time');
-  console.log(result.daily.data[0].sunriseTime * 1000);
-}
 
-const getSunSet = result => {
-  // console.log(result.daily.data[0].sunsetTime);
-}
 
 export {
   logData,
@@ -57,7 +48,5 @@ export {
   getHighTemp,
   getLowTemp,
   tempDataPoints,
-  getSunRise,
-  getSunSet,
   getForecastArray,
 }

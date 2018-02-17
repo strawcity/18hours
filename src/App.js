@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Moment from 'react-moment';
 import './components/_styles/css/app.css'
-import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp, getSunRise, getSunSet } from './components/weatherParse'
+import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp } from './components/weatherParse'
+import { getSunRise, getSunSet, getNextSunRise, getNextSunSet, sunRiseCheck, sunSetCheck } from './components/sunMovement.js'
 import LineChart from 'react-linechart';
 
 
@@ -17,6 +18,8 @@ class App extends Component {
       tempRange: [],
       sunRise: null,
       sunSet: null,
+      nextSunRise: null,
+      nextSunSet: null,
       foreCastArray: [],
       timeNow: (new Date()).getTime(),
       endTime: null,
@@ -42,6 +45,8 @@ class App extends Component {
             lowTemp: getLowTemp(tempArray),
             sunRise: getSunRise(result),
             sunSet: getSunSet(result),
+            nextSunRise: getNextSunRise(result),
+            nextSunSet: getNextSunSet(result),
             foreCastArray: getForecastArray(result),
             timeNow: (new Date()).getTime(),
             endTime: ((new Date()).getTime() + 61200000),
@@ -58,10 +63,10 @@ class App extends Component {
 
   render() {
       const { error, isLoaded, tempRange, foreCastArray } = this.state;
-      console.log('time now');
-      console.log(this.state.timeNow);
-      console.log('end time');
-      console.log(this.state.endTime);
+
+      sunRiseCheck(this.state.sunRise, this.state.timeNow)
+      sunSetCheck(this.state.sunSet, this.state.timeNow)
+
       const foreCast = foreCastArray.map((foreCast) =>
         <li id={foreCast.icon}>
           <img src={foreCast.icon}/>
@@ -88,7 +93,7 @@ class App extends Component {
                   width={600}
                   height={220}
                   hideYAxis={true}
-                  hideXAxis={false}
+                  hideXAxis={true}
                   hidePoints={false}
                   data={data}
               />
