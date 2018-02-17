@@ -51,6 +51,16 @@ h1 {
     position: absolute;
     top: 15px;
     left: 513px; }
+  .weather-graph .sunrise-line, .weather-graph .next-sunrise-line {
+    width: 10px;
+    height: 250px;
+    background: yellow;
+    position: absolute; }
+  .weather-graph .sunset-line {
+    width: 10px;
+    height: 250px;
+    background: orange;
+    position: absolute; }
 
 .weather-forecast {
   position: absolute;

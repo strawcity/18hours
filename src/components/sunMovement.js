@@ -17,15 +17,28 @@ const getNextSunSet = result => {
 
 const sunRiseCheck = (sunRise, timeNow) => {
   let showSunRise = sunRise - timeNow;
-  if (showSunRise) {
+  if (showSunRise > 0) {
     console.log((showSunRise / 61200000) * 525);
+  } else {
+    return null
   }
 }
 
 const sunSetCheck = (sunSet, timeNow) => {
   let showSunSet = sunSet - timeNow;
-  if (showSunSet) {
-    console.log((showSunSet / 61200000) * 525);
+  if (showSunSet > 0) {
+    return 100 + Math.round((showSunSet / 61200000) * 525)
+  } else {
+    return null
+  }
+}
+
+const nextSunRiseCheck = (nextSunRise, timeNow) => {
+  let showNextSunSet = nextSunRise - timeNow;
+  if (showNextSunSet > 0) {
+    return 100 + Math.round((showNextSunSet / 61200000) * 525)
+  } else {
+    return null
   }
 }
 
@@ -36,4 +49,5 @@ export {
   getNextSunSet,
   sunRiseCheck,
   sunSetCheck,
+  nextSunRiseCheck,
 }

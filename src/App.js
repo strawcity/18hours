@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Moment from 'react-moment';
 import './components/_styles/css/app.css'
 import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp } from './components/weatherParse'
-import { getSunRise, getSunSet, getNextSunRise, getNextSunSet, sunRiseCheck, sunSetCheck } from './components/sunMovement.js'
+import { getSunRise, getSunSet, getNextSunRise, getNextSunSet, sunRiseCheck, sunSetCheck, nextSunRiseCheck } from './components/sunMovement.js'
 import LineChart from 'react-linechart';
 
 
@@ -64,9 +64,6 @@ class App extends Component {
   render() {
       const { error, isLoaded, tempRange, foreCastArray } = this.state;
 
-      sunRiseCheck(this.state.sunRise, this.state.timeNow)
-      sunSetCheck(this.state.sunSet, this.state.timeNow)
-
       const foreCast = foreCastArray.map((foreCast) =>
         <li id={foreCast.icon}>
           <img src={foreCast.icon}/>
@@ -87,6 +84,9 @@ class App extends Component {
         return (
           <div className='App'>
             <div className='weather-graph'>
+            <span className="sunrise-line" style={{ left: sunRiseCheck(this.state.sunRise, this.state.timeNow) }}/>
+            <span className="next-sunrise-line" style={{ left: nextSunRiseCheck(this.state.nextSunRise, this.state.timeNow) }}/>
+            <span className="sunset-line" style={{ left: sunSetCheck(this.state.sunSet, this.state.timeNow) }}/>
             <h3 className='high-temp'>{this.state.highTemp}°</h3>
             <div className='line-chart'>
               <LineChart
