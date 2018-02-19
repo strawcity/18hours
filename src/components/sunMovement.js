@@ -1,53 +1,49 @@
 
-const getSunRise = result => {
-  return (result.daily.data[0].sunriseTime * 1000);
-}
-
-const getSunSet = result => {
-  return result.daily.data[0].sunsetTime * 1000
-}
-
-const getNextSunRise = result => {
-  return (result.daily.data[1].sunriseTime * 1000);
-}
-
-const getNextSunSet = result => {
-  return result.daily.data[1].sunsetTime * 1000
-}
-
-const sunRiseCheck = (sunRise, timeNow) => {
-  let showSunRise = sunRise - timeNow;
+const getSunRisePosition = (result, timeNow) => {
+  let showSunRise = (result.daily.data[0].sunriseTime * 1000) - timeNow;
   if (showSunRise > 0) {
-    console.log((showSunRise / 61200000) * 525);
+    return calculateOffset(showSunRise)
   } else {
     return null
   }
 }
 
-const sunSetCheck = (sunSet, timeNow) => {
-  let showSunSet = sunSet - timeNow;
-  if (showSunSet > 0) {
-    return 100 + Math.round((showSunSet / 61200000) * 525)
+const getSunSetPosition = (result, timeNow) => {
+  let showSunRise = result.daily.data[0].sunsetTime * 1000 - timeNow;
+  if (showSunRise > 0) {
+    console.log(calculateOffset(showSunRise));
+    return calculateOffset(showSunRise)
   } else {
     return null
   }
 }
 
-const nextSunRiseCheck = (nextSunRise, timeNow) => {
-  let showNextSunSet = nextSunRise - timeNow;
+const getNextSunRisePosition = (result, timeNow) => {
+  let showNextSunSet = result.daily.data[1].sunriseTime * 1000 - timeNow;
   if (showNextSunSet > 0) {
-    return 100 + Math.round((showNextSunSet / 61200000) * 525)
+    console.log(calculateOffset(showNextSunSet)); 
+    return calculateOffset(showNextSunSet)
   } else {
     return null
   }
+}
+
+const getNextSunSetPosition = (result, timeNow) => {
+  let showNextSunSet = result.daily.data[1].sunsetTime * 1000 - timeNow;
+  if (showNextSunSet > 0) {
+    return calculateOffset(showNextSunSet)
+  } else {
+    return null
+  }
+}
+
+const calculateOffset = sunMovement => {
+  return 65 + Math.round((sunMovement / 61200000) * 525)
 }
 
 export {
-  getSunRise,
-  getSunSet,
-  getNextSunRise,
-  getNextSunSet,
-  sunRiseCheck,
-  sunSetCheck,
-  nextSunRiseCheck,
+  getSunRisePosition,
+  getSunSetPosition,
+  getNextSunRisePosition,
+  getNextSunSetPosition,
 }

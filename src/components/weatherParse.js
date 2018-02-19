@@ -1,7 +1,7 @@
 
 const logData = data => {
-  console.log('hourly data');
-  console.log(data.hourly.data);
+  console.log(data.daily.data[0].time);
+  console.log(data.daily.data[0].sunriseTime);
 }
 
 const getTempArray = data => {
@@ -16,7 +16,7 @@ const getForecastArray = data => {
   var forecastArray = []
   for (var hour = 1; hour < 19; hour++) {
      if (hour % 2 !== 0) {
-       forecastArray.push({icon: "/img/" + data.hourly.data[hour].icon + ".svg", precep: "%" + Math.floor(data.hourly.data[hour].precipProbability * 100)})
+       forecastArray.push({time: data.hourly.data[hour].time * 1000, icon: "/img/" + data.hourly.data[hour].icon + ".svg", precep: "%" + Math.floor(data.hourly.data[hour].precipProbability * 100)})
      }
   }
   return forecastArray;

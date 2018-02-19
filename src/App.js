@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 import Moment from 'react-moment';
 import './components/_styles/css/app.css'
 import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp } from './components/weatherParse'
-import { getSunRise, getSunSet, getNextSunRise, getNextSunSet, sunRiseCheck, sunSetCheck, nextSunRiseCheck } from './components/sunMovement.js'
+import { getSunRisePosition, getSunSetPosition, getNextSunRisePosition, getNextSunSetPosition, } from './components/sunMovement.js'
 import LineChart from 'react-linechart';
 
+let timeNow = (new Date()).getTime()
+let endTime = (new Date()).getTime() + 61200000
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,13 +19,14 @@ class App extends Component {
       highTemp: null,
       lowTemp: null,
       tempRange: [],
-      sunRise: null,
-      sunSet: null,
-      nextSunRise: null,
-      nextSunSet: null,
       foreCastArray: [],
-      timeNow: (new Date()).getTime(),
-      endTime: null,
+      timeNow: timeNow,
+      endTime: endTime,
+      nightLength: null,
+      sunRisePosition: null,
+      sunSetPosition: null,
+      nextSunRisePosition: null,
+      nextSunSetPosition: null,
     };
   }
 
@@ -36,20 +40,21 @@ class App extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          // logData(result)
+          logData(result)
           let tempArray = getTempArray(result)
           this.setState({
             isLoaded: true,
             tempRange: tempDataPoints(tempArray),
             highTemp: getHighTemp(tempArray),
             lowTemp: getLowTemp(tempArray),
-            sunRise: getSunRise(result),
-            sunSet: getSunSet(result),
-            nextSunRise: getNextSunRise(result),
-            nextSunSet: getNextSunSet(result),
             foreCastArray: getForecastArray(result),
-            timeNow: (new Date()).getTime(),
-            endTime: ((new Date()).getTime() + 61200000),
+            timeNow: timeNow,
+            endTime: endTime,
+            nightLength: (endTime - timeNow),
+            sunRisePosition: getSunRisePosition(result, timeNow),
+            sunSetPosition: getSunSetPosition(result, timeNow),
+            nextSunRisePosition: getNextSunRisePosition(result, timeNow),
+            nextSunSetPosition: getNextSunSetPosition(result, timeNow),
           });
         },
         (error) => {
@@ -68,6 +73,7 @@ class App extends Component {
         <li id={foreCast.icon}>
           <img src={foreCast.icon}/>
           <p>{foreCast.precep}</p>
+          <p><Moment format="H:mm">{foreCast.time}</Moment></p>
         </li>
       );
       const data = [
@@ -84,9 +90,10 @@ class App extends Component {
         return (
           <div className='App'>
             <div className='weather-graph'>
-            <span className="sunrise-line" style={{ left: sunRiseCheck(this.state.sunRise, this.state.timeNow) }}/>
-            <span className="next-sunrise-line" style={{ left: nextSunRiseCheck(this.state.nextSunRise, this.state.timeNow) }}/>
-            <span className="sunset-line" style={{ left: sunSetCheck(this.state.sunSet, this.state.timeNow) }}/>
+            <span className="sunrise-line" style={{ left: this.state.sunRisePosition }}/>
+            <span className="next-sunrise-line" style={{ left: this.state.nextSunRisePosition }}/>
+            <span className="sunset-line" style={{ left: this.state.sunSetPosition }}/>
+            <span className="next-sunset-line" style={{ left:this.state.nextSunSetPosition }}/>
             <h3 className='high-temp'>{this.state.highTemp}°</h3>
             <div className='line-chart'>
               <LineChart
