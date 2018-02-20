@@ -6,7 +6,6 @@ body {
   width: 100%;
   font-family: 'Josefin Sans', sans-serif;
   height: 100%;
-  background: darkseagreen;
 }
 
 h1 {
@@ -25,11 +24,12 @@ h1 {
     margin: 0;
     color: white;
     font-weight: 300;
+    font-size: 25px;
   }
 
   .high-temp {
     position: absolute;
-    top: 86px;
+    top: 76px;
     left: 30px;
   }
   .low-temp {

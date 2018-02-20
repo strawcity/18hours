@@ -4,7 +4,6 @@ import './components/_styles/css/app.css'
 import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp } from './components/weatherParse'
 import { getSunRisePosition, getSunSetPosition, getNextSunRisePosition, getNextSunSetPosition, getNightLength } from './components/sun-movement.js'
 import LineChart from 'react-linechart';
-import SunSet from './components/sun-set';
 import SunRender from './components/sun-render';
 
 let timeNow = (new Date()).getTime()
@@ -77,7 +76,7 @@ class App extends Component {
         <li id={foreCast.icon}>
           <img src={foreCast.icon}/>
           <p>{foreCast.precep}</p>
-          <p><Moment format="H:mm">{foreCast.time}</Moment></p>
+          <p style={{ opacity: '0.2' }}><Moment format="H:mm">{foreCast.time}</Moment></p>
         </li>
       );
       const data = [
@@ -103,8 +102,6 @@ class App extends Component {
               nightLength={this.state.nightLength}
             />
 
-            <SunSet sunSetPosition={this.state.sunSetPosition}/>
-            <span className="next-sunset-line" style={{ left:this.state.nextSunSetPosition }}/>
             <h3 className='high-temp'>{this.state.highTemp}°</h3>
             <div className='line-chart'>
               <LineChart
@@ -112,7 +109,6 @@ class App extends Component {
                   height={220}
                   hideYAxis={true}
                   hideXAxis={true}
-                  hidePoints={false}
                   data={data}
               />
             </div>

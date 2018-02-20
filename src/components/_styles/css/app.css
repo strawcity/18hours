@@ -4,8 +4,7 @@ body {
   padding: 0;
   width: 100%;
   font-family: 'Josefin Sans', sans-serif;
-  height: 100%;
-  background: darkseagreen; }
+  height: 100%; }
 
 h1 {
   color: blue; }
@@ -20,10 +19,11 @@ h1 {
   .weather-graph h3 {
     margin: 0;
     color: white;
-    font-weight: 300; }
+    font-weight: 300;
+    font-size: 25px; }
   .weather-graph .high-temp {
     position: absolute;
-    top: 86px;
+    top: 76px;
     left: 30px; }
   .weather-graph .low-temp {
     position: absolute;

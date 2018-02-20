@@ -53,13 +53,14 @@ export default class SunRender extends React.Component {
     }
 
     if (this.props.nightLength > 0) {
-      nextSunRise = (
+      nightTime = (
         <span className="night-time" style={{ left:nightStart, width:this.props.nightLength }}/>
       )
     }
 
     return (
       <div>
+        {nightTime}
         {sunRise}
         {sunSet}
         {nextSunRise}
