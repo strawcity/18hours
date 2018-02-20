@@ -15,7 +15,7 @@ h1 {
   height: 329px;
   margin: 50px auto;
   position: relative;
-  background: steelblue;
+  background: #6F98BD;
   overflow: hidden; }
   .weather-graph h3 {
     margin: 0;
@@ -53,15 +53,40 @@ h1 {
     top: 15px;
     left: 513px; }
   .weather-graph .sunrise-line, .weather-graph .next-sunrise-line {
-    width: 10px;
+    width: 20px;
     height: 250px;
-    background: yellow;
+    top: -5px;
+    background: #95915A;
     position: absolute;
     filter: blur(5px); }
   .weather-graph .sunset-line {
-    width: 10px;
-    height: 250px;
-    background: orange;
+    width: 35px;
+    height: 320px;
+    top: -25px;
+    background: #fcd54a;
+    /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(252, 213, 74, 0.52) 0%, #fcd54a 20%, #fcd54a 21%, #b17418 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(252, 213, 74, 0.52) 0%, #fcd54a 20%, #fcd54a 21%, #b17418 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(252, 213, 74, 0.52) 0%, #fcd54a 20%, #fcd54a 21%, #b17418 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#85fcd54a', endColorstr='#b17418',GradientType=1 );
+    /* IE6-9 */
+    position: absolute;
+    filter: blur(13px); }
+  .weather-graph .night-time {
+    width: 100px;
+    height: 270px;
+    top: -5px;
+    background: -moz-linear-gradient(left, #8e3966 0%, #1e1f27 12%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #8e3966 0%, #1e1f27 12%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #8e3966 0%, #1e1f27 12%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8e3966', endColorstr='#1e1f27',GradientType=1 );
+    /* IE6-9 */
     position: absolute;
     filter: blur(5px); }
 

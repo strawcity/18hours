@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import Moment from 'react-moment';
 import './components/_styles/css/app.css'
 import { logData, getTempArray, getForecastArray, tempDataPoints, getHighTemp, getLowTemp } from './components/weatherParse'
-import { getSunRisePosition, getSunSetPosition, getNextSunRisePosition, getNextSunSetPosition, } from './components/sunMovement.js'
+import { getSunRisePosition, getSunSetPosition, getNextSunRisePosition, getNextSunSetPosition, getNightLength } from './components/sun-movement.js'
 import LineChart from 'react-linechart';
+import SunSet from './components/sun-set';
+import SunRender from './components/sun-render';
 
 let timeNow = (new Date()).getTime()
 let endTime = (new Date()).getTime() + 61200000
@@ -27,6 +29,7 @@ class App extends Component {
       sunSetPosition: null,
       nextSunRisePosition: null,
       nextSunSetPosition: null,
+      nightLength: null,
     };
   }
 
@@ -55,6 +58,7 @@ class App extends Component {
             sunSetPosition: getSunSetPosition(result, timeNow),
             nextSunRisePosition: getNextSunRisePosition(result, timeNow),
             nextSunSetPosition: getNextSunSetPosition(result, timeNow),
+            nightLength: getNightLength(result, timeNow),
           });
         },
         (error) => {
@@ -89,10 +93,17 @@ class App extends Component {
       } else {
         return (
           <div className='App'>
+
             <div className='weather-graph'>
-            <span className="sunrise-line" style={{ left: this.state.sunRisePosition }}/>
-            <span className="next-sunrise-line" style={{ left: this.state.nextSunRisePosition }}/>
-            <span className="sunset-line" style={{ left: this.state.sunSetPosition }}/>
+            <SunRender
+              sunRisePosition={this.state.sunRisePosition}
+              sunSetPosition={this.state.sunSetPosition}
+              nextSunRisePosition={this.state.nextSunRisePosition}
+              nextSunRisePosition={this.state.nextSunRisePosition}
+              nightLength={this.state.nightLength}
+            />
+
+            <SunSet sunSetPosition={this.state.sunSetPosition}/>
             <span className="next-sunset-line" style={{ left:this.state.nextSunSetPosition }}/>
             <h3 className='high-temp'>{this.state.highTemp}°</h3>
             <div className='line-chart'>
